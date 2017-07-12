@@ -11,11 +11,15 @@ engine = create_engine('sqlite:///puppyshelter.db', echo=False)
 # in ascending alphabetical order
 conn = engine.connect()
 all_puppies = select([Puppy.name]).order_by("name")
-result = conn.execute(all_puppies)
-row = result.fetchone()
 
-for row in result:
-	print row[0]
+# get a result object from the above query that we can act on
+resultObj = conn.execute(all_puppies)
+
+# here we can obtain a result tuple that we can iterate through
+answers = resultObj.fetchall()
+
+for answer in answers:
+	print answer[0]
 
 conn.close()
 
